@@ -1,5 +1,6 @@
 # WP Launchable
-**This code is incomplete. It doesn't do anything useful at this stage**
+**WARNING: This code is incomplete. It doesn't do anything useful at this stage!**
+
 A framework for performing **LaunchChecks** and **Quickfixes** upon your WordPress environment.
 
 Useful for:
