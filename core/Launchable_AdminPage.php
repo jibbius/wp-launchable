@@ -9,6 +9,7 @@ class Launchable_AdminPage {
 		?>
 		<div class="wrap launchable">
 			<h2><?php _e('Launchable', $this->text_domain); ?></h2>
+			<pre><?php include( Launchable::$plugin_directory .'/README.md'); ?></pre>
 		</div>
 
 	<?php
