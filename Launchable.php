@@ -5,7 +5,6 @@ Description:
 Author: Jack Barker
 Version: 1.0
 */
-
 class Launchable {
 	var $text_domain = 'launchable';
     static $plugin_directory = __DIR__ ;
@@ -28,7 +27,7 @@ class Launchable {
 		require_once(self::$plugin_directory .'/core/Launchable_Quickfix.php');
 	}
 
-	// Perform checks
+	// Load check files
 	public function load_checks(){
 		$path = self::$plugin_directory.'/checks/*.php';
 		foreach (glob($path) as $filename)

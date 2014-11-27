@@ -1,8 +1,8 @@
 <?php
 class Launchable_LaunchCheck {
-	var $name, $description, $message, $fixes;
+	var $name, $description, $message, $fixes, $dismisable;
 
-	public function __construct(){
+	public function __construct($dismissable = true){
 		$this->name = get_class($this);
 		$this->description = 'description';
 		$this->fixes = $this->name.'_fixes';
@@ -10,6 +10,10 @@ class Launchable_LaunchCheck {
 
 	public function shouldRunCheck(){
 		return true;
+	}
+
+	public function queueAlert(){
+		
 	}
 
 	public function doesCheckPass(){
