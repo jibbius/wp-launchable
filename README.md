@@ -16,15 +16,18 @@ The message may (optionally) present one or more Quickfixes - as a means to reme
 A Quickfix is a button / action, that is presented to the administrator as a means to solve the failed check.
 
 ## Distinguishing between Production and Test environments
-The intention, is that a different
+The intention, is that a different set of config will be stored for Prod vs. Test/Dev.
+The plugin shall determine which config to load.
+An **is_production()** function shall return false for siteurls matching: localhost, *.dev, or a custom rule.
 
 ## Configuration
 Still determining whether config will be stored in the database, or saved to file.
 Leaning toward the latter.
 
 ## Contributing
-- Contributions are 100% welcomed
+- Contributions are welcomed
 - Feature requests: Please log as issues in Github
+- Bugs: Please log as issues in Github
 - Pull requests: Yes please.
 
 ## Test Suite

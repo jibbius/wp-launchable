@@ -5,6 +5,7 @@ class Launchable_LaunchCheck {
 	public function __construct(){
 		$this->name = get_class($this);
 		$this->description = 'description';
+		$this->fixes = $this->name.'_fixes';
 	}
 
 	public function shouldRunCheck(){
@@ -17,7 +18,11 @@ class Launchable_LaunchCheck {
 	}
 
 	public function displayAlert(){
-		do_action($this->name);
+		$this->suggestFixes();
+	}
+
+	public function suggestFixes(){
+		do_action($this->fixes);
 	}
 
 }
