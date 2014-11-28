@@ -16,7 +16,7 @@ class Launchable {
 		// TODO: If(dashboard);
 		$this->load_plugin_core_files();
 		$this->load_checks();
-		$this->render_alerts();
+		add_action('admin_notices',array(&$this, 'render_alerts'));
 		// TODO: Endif;
 
 		if( is_user_logged_in() && current_user_can('manage_options') && is_admin() ){
