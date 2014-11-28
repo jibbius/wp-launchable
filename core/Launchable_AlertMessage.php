@@ -5,6 +5,7 @@ class Launchable_AlertMessage {
 	public function __construct($message, $dismissable = true){
 		$this->message = $message;
 		$this->dismissable = $dismissable;
+		$this->fixes = array();
 	}
 
 	public function display(){
@@ -16,13 +17,13 @@ class Launchable_AlertMessage {
 	}
 
 	public function suggestFix_Link($label,$link){
-		$fixes[] = "<a href='$link' class='button'>$label</a>";
+		$this->fixes[] = "<a href='$link' class='button'>$label</a>";
 	}
 
 	public function suggestFix_PHPFunction($label,$function){
 		// TODO: Implement linkage mechanism
-		$link = '#'.print_r($function);
-		$fixes[] = "<a href='$link' class='button'>$label</a>";
+		$link = '#'.json_encode($function);
+		$this->fixes[] = "<a href='$link' class='button'>$label</a>";
 	}
 	
 	public function suggestFix_CodeSnippet($label,$snippet){
