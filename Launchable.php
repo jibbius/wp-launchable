@@ -12,8 +12,12 @@ class Launchable {
 	// init
 	public function init() {
 		load_plugin_textdomain( $this->text_domain, false, '/localization' );
-		$this->load_plugin_files();
+
+		// TODO: If(dashboard);
+		$this->load_plugin_core_files();
 		$this->load_checks();
+		$this->render_alerts();
+		// TODO: Endif;
 
 		if( is_user_logged_in() && current_user_can('manage_options') && is_admin() ){
 			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
@@ -21,7 +25,7 @@ class Launchable {
 	}
 
 	// Load plugin files
-	public function load_plugin_files(){
+	public function load_plugin_core_files(){
 		require_once(self::$plugin_directory .'/core/Launchable_AdminPage.php');
 		require_once(self::$plugin_directory .'/core/Launchable_LaunchCheck.php');
 		require_once(self::$plugin_directory .'/core/Launchable_Quickfix.php');
@@ -43,6 +47,10 @@ class Launchable {
 				}
 			}
 		}
+	}
+
+	public function render_alerts(){
+		do_action('Launchable_Alerts');
 	}
 
 
