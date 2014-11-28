@@ -10,9 +10,8 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 		if ($robots_blocked){
 			$priority = 10;
 			$alert = new Launchable_AlertMessage('<strong>Huge SEO Issue:</strong> You\'re blocking access to robots.txt');
-			$alert->suggestFix_Link('View settings page',admin_url('options-reading.php'));
-			$alert->suggestFix_PHPFunction('Unblock it for me', array(&$this, 'unblock_robots'));
-//			$alert->suggestFix_CodeSnippet('Unblock it for me','#');
+			$alert->suggestFix_Link('View page',admin_url('options-reading.php'));
+			$alert->suggestFix_PHPFunction('Unblock it for me', array($this->name, 'unblock_robots'));
 			$this->queueAlert($alert,$priority);
 		}
 
