@@ -18,5 +18,4 @@ class Launchable_LaunchCheck {
 		add_action('Launchable_Alerts', array(&$alert, 'display'),$priority);
 	}
 
-
 }

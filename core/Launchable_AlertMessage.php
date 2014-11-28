@@ -42,7 +42,6 @@ class Launchable_AlertMessage {
 		$this->fixes[] = "<a href='$link' data-nonce='$nonce' class='button $action'>$label</a>";
 	}
 
-
 	public function suggestFix_CodeSnippet($label,$snippet){
 	}
 
