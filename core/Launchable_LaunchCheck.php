@@ -21,8 +21,14 @@ class Launchable_LaunchCheck {
 		return $checkDidPass;
 	}
 
-	public function displayAlert(){
-		$this->suggestFixes();
+	public function displayAlert($message, $link=false, $javascript=false,$message_after=''){
+			echo '<div class="launchy-message error"><p>',$message,'&nbsp;';
+			if($link && !$javascript){
+				echo "<a href=\"$link\" class='button'>Fix it</a>";
+			} elseif($link && $javascript) {
+				echo "<div onclick=\"$link\" class='button'>Fix it</div>";
+			}
+			echo $message_after,'</p></div>';
 	}
 
 	public function suggestFixes(){

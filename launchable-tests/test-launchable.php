@@ -6,7 +6,7 @@ class Tests_Counter extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		/* Get an instance of our plugin */
-		$this->counter = new CommentCounter;
+		$this->counter = new Launchable;
 	}
 
 	/* A simple test */
