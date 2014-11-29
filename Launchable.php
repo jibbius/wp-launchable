@@ -26,6 +26,7 @@ class Launchable {
 
 	// Load plugin files
 	public function load_plugin_core_files(){
+		require_once(self::$plugin_directory .'/Launchable_functions.php');
 		require_once(self::$plugin_directory .'/core/Launchable_AdminPage.php');
 		require_once(self::$plugin_directory .'/core/Launchable_AlertMessage.php');
 		require_once(self::$plugin_directory .'/core/Launchable_LaunchCheck.php');

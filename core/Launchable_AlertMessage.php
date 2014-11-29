@@ -20,23 +20,21 @@ class Launchable_AlertMessage {
 		$this->fixes[] = "<a href='$link' class='button'>$label</a>";
 	}
 
-	public function suggestFix_PHPFunction($label,$function,$action_name){
-		//
-		// add_action("wp_ajax_".$action_name, "my_user_vote");
+	public function suggestFix_PHPFunction($label,$function,$action){
 
-		// Linkage mechanism
-		if(is_array($function)){
-			$class = $function[0];
-			$action = $function[1];
-		} else {
-			$action = $function;
-		}
-		add_action( 'wp_ajax_nopriv_'.$action_name, $function );
-		$nonce = wp_create_nonce('unblock_robots_nonce');
+// /* Possible linkage mechanism */
+//		if(is_array($function)){
+//			$class = $function[0];
+//			$action = $function[1];
+//		} else {
+//			$action = $function;
+//		}
+
+		add_action( 'wp_ajax_nopriv_'.$action, $function );
+		$nonce = wp_create_nonce($action.'_nonce');
 	    $link = '#';
 
-		$this->fixes[] = "<a href='$link' data-nonce='$nonce' class='button $action_name'>$label</a>";
-//		$this->fixes[] = "<a href='$link' class='button $action_name'>$label</a>";
+		$this->fixes[] = "<a href='$link' data-nonce='$nonce' data-action='$action' class='button $action'>$label</a>";
 	}
 
 	public function suggestFix_CodeSnippet($label,$snippet){

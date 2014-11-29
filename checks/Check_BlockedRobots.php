@@ -1,7 +1,7 @@
 <?php
 
 class Check_BlockedRobots extends Launchable_LaunchCheck {
-
+	var $action = 'unblock_robots'; // used in AJAX call
 	public function runCheck(){
 		add_action("wp_ajax_unblock_robots", array(&$this, 'unblock_robots'));
 		//Is robots.txt blocked?
@@ -11,14 +11,14 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 			$priority = 10;
 			$alert = new Launchable_AlertMessage('<strong>Huge SEO Issue:</strong> You\'re blocking access to robots.txt');
 			$alert->suggestFix_Link('View page',admin_url('options-reading.php'));
-			$alert->suggestFix_PHPFunction('Unblock it for me', array( &$this , 'unblock_robots'),'unblock_robots');
+			$alert->suggestFix_PHPFunction('Unblock it for me', array( &$this , 'unblock_robots'),$this->action);
 			$this->queueAlert($alert,$priority);
 		}
 		add_action('admin_footer',array(&$this, 'client_ajax_handler' ));
 	}
 
 	public function unblock_robots(){
-		if ( !wp_verify_nonce( $_REQUEST['nonce'], 'unblock_robots_nonce')) {
+		if ( !wp_verify_nonce( $_REQUEST['nonce'], $this->action.'_nonce')) {
 			exit('Request not authorised');
 		}
 		update_option('blog_public','1');
@@ -35,7 +35,7 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 	}
 
 	public function client_ajax_handler(){
-		$action='unblock_robots';
+		$action=$this->action;
 		$button_class=".$action"; // TODO: Convert to ID
 		$alert_container_class=".$action"; // TODO: Assign ID, and handle success message in UI
 $script =
@@ -45,6 +45,7 @@ jQuery(document).ready( function() {
    jQuery("'.$button_class.'").click( function(event) {
    	  event.preventDefault();
    	  nonce = jQuery(this).attr("data-nonce")
+   	  action = jQuery(this).attr("data-action")
 
       jQuery.ajax({
          type : "post",
