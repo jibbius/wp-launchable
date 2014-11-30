@@ -16,6 +16,7 @@ class Launchable {
 		// TODO: If(dashboard);
 		$this->load_plugin_core_files();
 		$this->load_checks();
+		add_action( 'admin_enqueue_scripts', array(&$this,'enqueue_scripts'));
 		add_action('admin_notices',array(&$this, 'render_alerts'));
 		// TODO: Endif;
 
@@ -30,6 +31,11 @@ class Launchable {
 		require_once(self::$plugin_directory .'/core/Launchable_AdminPage.php');
 		require_once(self::$plugin_directory .'/core/Launchable_AlertMessage.php');
 		require_once(self::$plugin_directory .'/core/Launchable_LaunchCheck.php');
+	}
+
+	public function enqueue_scripts() {
+		wp_enqueue_script( 'launchable', plugins_url( '/core/js/launchable.js', __FILE__ ), array( 'jquery' ) );
+		wp_localize_script( 'launchable', 'launchableArgs', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 	}
 
 	// Load check files

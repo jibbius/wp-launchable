@@ -9,7 +9,7 @@ class Launchable_AlertMessage {
 	}
 
 	public function display(){
-			echo '<div class="launchable-message error"><p>',$this->message,'&nbsp;';
+			echo '<div class="Launchable-message error"><p>',$this->message,'&nbsp;';
 			foreach ($this->fixes as $key => $fix) {
 				echo $fix;
 			}
@@ -29,12 +29,12 @@ class Launchable_AlertMessage {
 //		} else {
 //			$action = $function;
 //		}
-
+		$alert_button_class = "Launchable-quickfix";
 		add_action( 'wp_ajax_nopriv_'.$action, $function );
 		$nonce = wp_create_nonce($action.'_nonce');
 	    $link = '#';
 
-		$this->fixes[] = "<a href='$link' data-nonce='$nonce' data-action='$action' class='button $action'>$label</a>";
+		$this->fixes[] = "<a href='$link' data-nonce='$nonce' data-action='$action' class='button $action $alert_button_class'>$label</a>";
 	}
 
 	public function suggestFix_CodeSnippet($label,$snippet){
