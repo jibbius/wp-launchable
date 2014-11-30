@@ -1,7 +1,6 @@
 <?php
 class Launchable_LaunchCheck {
 	var $name, $description;
-	// var $fixes, $dismisable;
 	var $alerts = array();
 
 	public function __construct(){

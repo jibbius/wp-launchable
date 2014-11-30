@@ -1,7 +1,6 @@
 <?php
 
 class Check_BlockedRobots extends Launchable_LaunchCheck {
-	var $action = 'unblock_robots'; // used in AJAX call
 
 	public function runCheck(){
 
@@ -10,22 +9,30 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 
 		if ($robots_blocked){
 
+//			New alert
 			$message = '<strong>Huge SEO Issue:</strong> You\'re blocking access to robots.txt';
 			$alert = new Launchable_AlertMessage($message);
 
-//			Fix 1: View the settings page
+//			Suggested Fix 1: View the settings page
 			$alert->suggestFix_Link('View page',admin_url('options-reading.php'));
 
-//			Fix 2: Call a custom PHP function, via AJAX
-			$alert->suggestFix_PHPFunction('Unblock it for me', array( &$this , 'unblock_robots'),$this->action);
-			add_action("wp_ajax_unblock_robots", array(&$this, 'unblock_robots'));
+//			Suggested Fix 2: Call a custom PHP function via AJAX
+			$action = 'unblock_robots';
+			$nonce = wp_create_nonce($action.'_nonce');
+			add_action('wp_ajax_'.$action, array(&$this, $action));
 
+			$alert->suggestFix_PHPFunction('Unblock it for me',$action,$nonce);
+
+//			Alert is now ready to be added to the queue
 			$this->queueAlert($alert);
 		}
 	}
 
 	public function unblock_robots(){
-		if ( !wp_verify_nonce( $_REQUEST['nonce'], $this->action.'_nonce')) {
+		$action = 'unblock_robots';
+		$nonce = $action.'_nonce';
+
+		if ( !wp_verify_nonce( $_REQUEST['nonce'], $nonce)) {
 			exit('Request not authorised');
 		}
 		update_option('blog_public','0');
@@ -34,8 +41,7 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			$result = json_encode($result);
 			echo $result;
-		}
-	else {
+		} else {
 			header("Location: ".$_SERVER["HTTP_REFERER"]);
 		}
 		die();
