@@ -15,7 +15,7 @@ jQuery(document).ready(function () {
             data: {action: action, nonce: nonce},
             success: function (response) {
                 if (response.type == "success") {
-                    quickFix.parents(".Launchable-message").slideUp();
+                    quickFix.parents(".Launchable-message").removeClass("error").addClass("updated").html("<p><strong>Success.</strong></p>");
                 }
                 else {
                     alert("failed")
