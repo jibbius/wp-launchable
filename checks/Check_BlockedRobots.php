@@ -35,7 +35,7 @@ class Check_BlockedRobots extends Launchable_LaunchCheck {
 		if ( !wp_verify_nonce( $_REQUEST['nonce'], $nonce)) {
 			exit('Request not authorised');
 		}
-		update_option('blog_public','0');
+		update_option('blog_public','1');
 		$result['type'] = 'success';
 
 		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
