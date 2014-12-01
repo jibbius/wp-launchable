@@ -7,6 +7,7 @@ Version: 1.0
 */
 class Launchable {
 	var $text_domain = 'launchable';
+	var $checks = array();
     static $plugin_directory = __DIR__ ;
 
 	// init
@@ -52,6 +53,7 @@ class Launchable {
 				if(method_exists($checkInstance,'runCheck')){
 					$checkInstance->runCheck();
 				}
+				$this->checks[$className] = $checkInstance;
 			}
 		}
 	}
@@ -60,16 +62,25 @@ class Launchable {
 		do_action('Launchable_Alerts');
 	}
 
-
 	// Register the options page
 	function add_admin_menu() {
-		$this->options_page = new Launchable_AdminPage();
-		$this->menu_id = add_options_page(
-			__( 'Launchable', $this->text_domain ), // Page Title
+		$this->readme_page = new Launchable_AdminPage();
+
+		$this->menu_id = add_menu_page(
+			__( 'Launchable Options', $this->text_domain ), // Page Title
 			__( 'Launchable', $this->text_domain ), // Menu Title
 			'manage_options', // Capability
-			$this->text_domain, // Menu Slug
-			array(&$this->options_page, 'render_page') );
+			$this->text_domain, // Slug
+			array(&$this->options_page, 'readme_page') );
+
+		$this->options_page = new Launchable_AdminPage();
+		add_submenu_page(
+			$this->text_domain, // Slug
+			__( 'Readme', $this->text_domain ), // Page Title
+			__( 'Readme', $this->text_domain ), // Menu Title
+			'manage_options', // Capability
+			'launchable-readme',//$this->text_domain, // Menu Slug
+			array(&$this->readme_page, 'readme_page') );
 	}
 
 }

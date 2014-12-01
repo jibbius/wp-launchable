@@ -4,7 +4,7 @@ class Launchable_AdminPage {
 	var $text_domain = 'launchable';
 
 	// Render the options page
-	function render_page() {
+	function readme_page() {
 		global $wpdb;
 		?>
 		<div class="wrap launchable">
