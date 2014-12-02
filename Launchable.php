@@ -60,7 +60,8 @@ class Launchable {
 				// Error - ClassName does not match filename
 				$message = "ERROR: The file <b>$filename</b> does not contain the expected class <b>$className</b>";
 				$alert = new Launchable_AlertMessage($message);
-				Launchable_LaunchCheck::queueAlert($alert);
+				$x = new Launchable_LaunchCheck;
+				$x->queueAlert($alert);
 			}
 		}
 	}
