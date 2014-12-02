@@ -44,6 +44,7 @@ class Launchable {
 		$path = self::$plugin_directory.'/checks/*.php';
 		foreach (glob($path) as $filename)
 		{
+
 			include $filename;
 			$className = basename($filename, ".php");
 
@@ -54,6 +55,9 @@ class Launchable {
 					$checkInstance->runCheck();
 				}
 				$this->checks[$className] = $checkInstance;
+
+			} else {
+				// TODO: Error - ClassName does not match filename
 			}
 		}
 	}
