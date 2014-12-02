@@ -57,7 +57,10 @@ class Launchable {
 				$this->checks[$className] = $checkInstance;
 
 			} else {
-				// TODO: Error - ClassName does not match filename
+				// Error - ClassName does not match filename
+				$message = "ERROR: The file <b>$filename</b> does not contain the expected class <b>$className</b>";
+				$alert = new Launchable_AlertMessage($message);
+				Launchable_LaunchCheck::queueAlert($alert);
 			}
 		}
 	}
