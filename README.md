@@ -7,13 +7,19 @@ Useful for:
 - Setting up new development environments
 - Pre-launch checks, in preparation for handing over to a client.
 
-## LaunchChecks
-LaunchChecks are tasks that get run when viewing the WordPress dashboard.
-If a check fails then it will raise a message within the WordPress Dashboard for the administrator to attend to.
-The message may (optionally) present one or more Quickfixes - as a means to remedy the failed check.
+## Important Definitions
+WP Launchable uses:
+- Checks
+- Quickfixes
 
-## Quickfixes
-A Quickfix is a button / action, that is presented to the administrator as a means to solve the failed check.
+### Checks
+Checks are tasks that get run when viewing the WordPress dashboard, for example: "Have I enabled debug mode in my development environment?".
+
+If a check fails then it will raise a message within the WordPress Dashboard that will be shown to admin users.
+The message may (optionally) present one or more Fixes - as a means to remedy the failed check.
+
+### Fixes
+A Fix is a button / action, that is presented to the administrator as a means to solve the failed check.
 
 ## Distinguishing between Production and Test environments
 The intention, is that a different set of config will be stored for Prod vs. Test/Dev.
