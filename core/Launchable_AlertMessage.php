@@ -27,7 +27,30 @@ class Launchable_AlertMessage {
 		$this->fixes[] = "<a href='$link' data-nonce='$nonce' data-action='$action' class='button $action $alert_button_class'>$label</a>";
 	}
 
-	public function suggestFix_CodeSnippet($label,$snippet){
+
+	public function suggestFix_CodeSnippet($label,$snippet,$instruction=''){
+		$id = 'launchable-expander-'.uniqid();
+
+		$expando = "<div id='$id' class='launchable expander'
+				style='display:none;
+			    margin: 10px 20px;'>";
+
+		if($instruction)
+			$expando.= "<div class='launchable instruction'
+			    style='color: #0090d6; font-weight:bold'>$instruction</div>";
+
+		$expando.="<div class='launchable snippet'
+				style='border: 2px solid;
+			    background: #282828;
+			    tab-size: 4;
+			    color: #BEBCBC;
+			    padding: 4px 20px;'>
+			    <pre>$snippet</pre>
+		    </div>
+		</div>";
+		$link= "jQuery('#$id').slideToggle();";
+		$this->fixes[] = "<a onclick=$link class='button'>$label</a>$expando";
+
 	}
 
 }
