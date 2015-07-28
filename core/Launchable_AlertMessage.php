@@ -1,15 +1,20 @@
 <?php
 class Launchable_AlertMessage {
-	var $message, $dismisable, $fixes;
+	var $message, $dismissable, $fixes, $errorlevel;
 
-	public function __construct($message, $dismissable = true){
+	public function __construct($message, $errorlevel='error', $dismissable = true){
 		$this->message = $message;
+		$this->errorlevel = $errorlevel;
 		$this->dismissable = $dismissable;
 		$this->fixes = array();
 	}
 
 	public function display(){
-			echo '<div class="Launchable-message error"><p>',$this->message,'&nbsp;';
+			$classes = Array('Launchable-message', 'notice');
+			if($this->dismissable) $classes[] = 'is-dismissible';
+			if($this->errorlevel) $classes[] = $this->errorlevel;
+
+			echo '<div class="',implode(" ", $classes),'"><p>',$this->message,'&nbsp;';
 			foreach ($this->fixes as $key => $fix) {
 				echo $fix;
 			}
