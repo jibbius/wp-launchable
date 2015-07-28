@@ -26,8 +26,6 @@ CODEFIX;
 			$this->queueAlert($alert);
 
 
-
-
 		}
 
 	}
