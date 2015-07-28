@@ -34,33 +34,38 @@ class Check_SurplusCPTs extends Launchable_LaunchCheck{
 		$unused_custom_post_types = $this->get_unused_custom_posts();
 		if ( ! empty( $unused_custom_post_types ) ) {
 			$message =
-				'You are not using the following post types:'.
+				'You are not using the following post types: '.
 				'<strong>' . implode( '</strong>, <strong>', $unused_custom_post_types ) . '</strong>.'.
 				'<br />Perhaps you wish to disable them?';
 			$alert = new Launchable_AlertMessage($message);
 
 			$codefix = <<<CODEFIX
-	add_action('init', function(){
-		global \$wp_post_types;
-		/*
-		 * List all post types to be disabled
-		 */
+add_action('init', function(){
+	global \$wp_post_types;
+	\$unused_custom_post_types = Array();
 
-		 \$unused_custom_post_types = Array();
+	/*
+	 * List of post types to be disabled
+	 * (Add or remove lines of code if required)
+	 */
 CODEFIX;
 			foreach ($unused_custom_post_types as $post_type){
 				$codefix .= "
-		\$unused_custom_post_types[] = ('$post_type');";
+	\$unused_custom_post_types[] = ('$post_type');";
 			}
 
 			$codefix .= <<<CODEFIX
 
-		foreach($unused_custom_post_types as $post_type){
-			if( isset(\$wp_post_types[\$post_type]) ){
-				unset (\$wp_post_types[\$post_type]);
-			}
+
+	/*
+	 * Disable post types
+	 */
+	foreach(\$unused_custom_post_types as \$post_type){
+		if( isset(\$wp_post_types[\$post_type]) ){
+			unset (\$wp_post_types[\$post_type]);
 		}
-	}, 20);
+	}
+}, 20);
 CODEFIX;
 			$codefix = esc_html($codefix);
 			$alert->suggestFix_CodeSnippet('Show snippet',$codefix, 'Add the content below to your functions.php file:');
