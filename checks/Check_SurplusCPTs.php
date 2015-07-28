@@ -40,32 +40,27 @@ class Check_SurplusCPTs extends Launchable_LaunchCheck{
 			$alert = new Launchable_AlertMessage($message);
 
 			$codefix = <<<CODEFIX
-if(!function_exists('unregister_post_type')){
-	function unregister_post_type(\$post_type){
+	add_action('init', function(){
 		global \$wp_post_types;
-		if( isset(\$wp_post_types[\$post_type]) ){
-			unset (\$wp_post_types[\$post_type]);
-			return true;
-		}
-		return false;
-	}
-}
-if(!function_exists('remove_surplus_post_types')){
-	function remove_surplus_post_types(){
 		/*
 		 * List all post types to be disabled
 		 */
-CODEFIX;
 
+		 \$unused_custom_post_types = Array();
+CODEFIX;
 			foreach ($unused_custom_post_types as $post_type){
 				$codefix .= "
-		unregister_post_type('$post_type');";
+		\$unused_custom_post_types[] = ('$post_type');";
 			}
+
 			$codefix .= <<<CODEFIX
 
-	}
-	add_action('init', 'remove_surplus_post_types', 20);
-}
+		foreach($unused_custom_post_types as $post_type){
+			if( isset(\$wp_post_types[\$post_type]) ){
+				unset (\$wp_post_types[\$post_type]);
+			}
+		}
+	}, 20);
 CODEFIX;
 			$codefix = esc_html($codefix);
 			$alert->suggestFix_CodeSnippet('Show snippet',$codefix, 'Add the content below to your functions.php file:');
