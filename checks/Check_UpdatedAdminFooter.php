@@ -1,7 +1,6 @@
 <?php
 
 class Check_UpdatedAdminFooter extends Launchable_LaunchCheck{
-//TODO: Implement Check_UpdatedLoginLogo
 	function runCheck(){
 		if(!has_filter('admin_footer_text')){
 
@@ -22,9 +21,7 @@ add_filter('admin_footer_text', 'custom_admin_footer');
 CODEFIX;
 			$codefix = esc_html($codefix);
 			$alert->suggestFix_CodeSnippet('Show snippet',$codefix, 'Add the content below to your functions.php file:');
-
 			$this->queueAlert($alert);
-
 
 		}
 
