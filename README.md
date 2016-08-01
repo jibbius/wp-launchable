@@ -1,34 +1,29 @@
 # WP Launchable
-**WARNING: This code is incomplete. It doesn't do anything useful at this stage!**
+A framework for ensuring your WordPress environment is ready to deploy into production and hand over to a client.
 
-A framework for performing **LaunchChecks** and **Quickfixes** upon your WordPress environment.
+![screenshot](/screenshot.png)
+
+Currently checks whether:
+- You have enabled/disabled DEBUG mode as appropriate (dependant on whether this is a Test/Production environment)
+- You have set strong passwords
+- You have disabled the WP code editor
+- You have updated the tagline
+- You have unblocked robots.txt
+- You have customised the admin footer
+- Framework allows for additional checks to be made, and for quickfixes to be recommended.
 
 Useful for:
 - Setting up new development environments
 - Pre-launch checks, in preparation for handing over to a client.
 
-## Important Definitions
-WP Launchable uses:
-- Checks
-- Quickfixes
-
-### Checks
-Checks are tasks that get run when viewing the WordPress dashboard, for example: "Have I enabled debug mode in my development environment?".
-
-If a check fails then it will raise a message within the WordPress Dashboard that will be shown to admin users.
-The message may (optionally) present one or more Fixes - as a means to remedy the failed check.
-
-### Fixes
-A Fix is a button / action, that is presented to the administrator as a means to solve the failed check.
-
 ## Distinguishing between Production and Test environments
-The intention, is that a different set of config will be stored for Prod vs. Test/Dev.
-The plugin shall determine which config to load.
-An **is_production()** function shall return false for siteurls matching: localhost, *.dev, or a custom rule.
+Whilst distinguishing between Test and Production isn't typically good practise - this plugin does so, and with good reason.
+For example: The plugin will alert you if DEBUG is enabled in production, or if DEBUG is disabled in test.
+By default, the **is_production()** function shall return **false** for siteurls matching: localhost, *.dev.
+Alternatively, you can define a custom rule.
 
 ## Configuration
-Still determining whether config will be stored in the database, or saved to file.
-Leaning toward the latter.
+At present - no configuration required.
 
 ## Contributing
 - Contributions are welcomed
@@ -37,7 +32,7 @@ Leaning toward the latter.
 - Pull requests: Yes please.
 
 ## Test Suite
-- The test suite is not correctly implemented yet
+- The test suite is not implemented yet
 
 ## License
 
