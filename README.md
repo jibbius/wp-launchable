@@ -10,6 +10,7 @@ Currently checks whether:
 - You have updated the tagline
 - You have unblocked robots.txt
 - You have customised the admin footer
+- You have unused post_types (that you may wish to hide from the UI?)
 - Framework allows for additional checks to be made, and for quickfixes to be recommended.
 
 Useful for:
