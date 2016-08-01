@@ -1,7 +1,7 @@
 # WP Launchable
 A framework for ensuring your WordPress environment is ready to deploy into production and hand over to a client.
 
-![screenshot](/screenshot_@2x.png.png)
+![screenshot](/screenshot_@2x.png)
 
 Currently checks whether:
 - You have enabled/disabled DEBUG mode as appropriate (dependant on whether this is a Test/Production environment)
