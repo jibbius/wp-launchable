@@ -3,7 +3,7 @@
 class Check_ClientLogins extends Launchable_LaunchCheck {
 	public function runCheck(){
 		global $wpdb;
-		$results = $wpdb->get_results('SELECT * FROM wp_users' );
+		$results = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'users' );
 
 		// Have I created client logins?
 		if (count($results) == 1){

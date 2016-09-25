@@ -5,7 +5,7 @@ class Check_BlackListedPasswords extends Launchable_LaunchCheck {
 		$blacklisted_passwords=array('password','p@ssw0rd');
 
 		global $wpdb;
-		$results = $wpdb->get_results('SELECT * FROM wp_users' );
+		$results = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'users' );
 
 		//TODO: Optimise. Needs to be a more efficient means to do this.
 		foreach ($results as $result) {
