@@ -14,17 +14,20 @@ class Launchable {
 	public function init() {
 		load_plugin_textdomain( $this->text_domain, false, '/localization' );
 
-		// Determine what the current screen is
-		$current_screen   = get_current_screen();
 
-		// If(current screen = dashboard)
-		if ( in_array( $current_screen->base, array('dashboard') )){
-			$this->load_plugin_core_files();
-			$this->load_checks();
-			add_action( 'admin_enqueue_scripts', array(&$this,'enqueue_scripts'));
-			add_action('admin_notices',array(&$this, 'render_alerts'));
-		}
 		if( is_user_logged_in() && current_user_can('manage_options') && is_admin() ){
+
+			// Determine what the current screen is
+			$current_screen   = get_current_screen();
+
+			// If(current screen = dashboard)
+			if ( in_array( $current_screen->base, array('dashboard') )){
+				$this->load_plugin_core_files();
+				$this->load_checks();
+				add_action( 'admin_enqueue_scripts', array(&$this,'enqueue_scripts'));
+				add_action('admin_notices',array(&$this, 'render_alerts'));
+			}
+
 			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
 		}
 	}
@@ -95,5 +98,4 @@ class Launchable {
 	}
 
 }
-//TODO: This is very late to init the plugin. Is this the best approach?
 add_action( 'admin_enqueue_scripts', array(new Launchable, 'init' ) );
